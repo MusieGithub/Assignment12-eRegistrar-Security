@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+  <title>Maharishi Universtiy</title>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+
+  <h2 style="background-color: aqua;">Student search result for '[[${searchString}]]'</h2>
+
+  <section>
+    <form action="/secured/student/search" method="get">
+      <fieldset>
+        <div>
+          <input type="search" name="searchString" id="searchString" style="width: 35%; height: 4em;"
+                 th:value="${searchString}" placeholder="Enter some text to search for Student"
+                 autofocus>
+          <button type="submit" style="height: 4em; width: 7em;">Search</button>
+        </div>
+      </fieldset>
+    </form>
+  </section>
+
+  <section style="margin-top: 1em;">
+    <table class="table table-responsive table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Gpa</th>
+        <th>Date Of Enrollment</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="student,counter : ${student}">
+        <th th:text="${counter.count}"></th>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.cgpa}"></td>
+        <td th:text="${student.dateOfEnrollment}"></td>
+      </tr>
+<!--      <tr th:if="${student.isEmpty()}">-->
+<!--        <td colspan="3" th:align="center">No Student found</td>-->
+      </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body>
+</html>
